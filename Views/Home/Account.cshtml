@@ -1,0 +1,36 @@
+@model Transaction;
+<h1>Welcome @ViewBag.User.FirstName</h1>
+
+<div class="d-flex justify-content-around">
+    <div class="col-5">
+        <form asp-action="NewTransaction" asp-controller="Home" method="post">
+            <div class="form-group">
+                <span asp-validation-for="Amount"></span>
+                <label asp-for="Amount"></label>
+                <div>
+                    <input class="form-control" asp-for="Amount">
+                </div>
+            </div>
+            <input class="btn btn-success" value="Submit" type="submit">
+        </form>
+    </div>
+
+<h1>Account Total: @ViewBag.Total.ToString("#.##")</h1>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in ViewBag.User.TransactionList)
+        {
+            <tr>
+                <td>@t.Amount.ToString("#.##")</td>
+                <td>@t.CreatedAt.ToString("MMM dd yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

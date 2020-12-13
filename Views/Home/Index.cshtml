@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model User;
+<div class="d-flex justify-content-around">
+<div class="col-5">
+    <form asp-action="Register" asp-controller="Home" method="post">
+        <div class="form-group">
+            <span asp-validation-for="FirstName"></span>
+            <label c asp-for="FirstName"></label>
+            <input class="form-control" asp-for="FirstName">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="LastName"></span>
+            <label asp-for="LastName"></label>
+            <input class="form-control" asp-for="LastName">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Email"></span>
+            <label asp-for="Email"></label>
+            <input class="form-control" asp-for="Email">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Password"></span>
+            <label asp-for="Password"></label>
+            <input class="form-control" asp-for="Password">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Confirm"></span>
+            <label asp-for="Confirm"></label>
+            <input class="form-control" asp-for="Confirm">
+        </div>
+        <input class="btn btn-primary" value="Submit" type="submit">
+    </form>
+</div>
+
+<a href="/login">Already Registered?</a>
+</div>
