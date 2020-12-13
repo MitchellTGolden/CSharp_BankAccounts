@@ -143,10 +143,9 @@ namespace BankAccounts.Controllers
             else
             {
                 ViewBag.User = _context.Users
-                .Include(u => u.TransactionList)
+                .Include(u => u.TransactionList).OrderBy(u => u.CreatedAt)
                 .FirstOrDefault(u => u.UserId == UserID);
                 ViewBag.Total = AcctTotal();
-
                 return View();
             }
         }
@@ -157,9 +156,23 @@ namespace BankAccounts.Controllers
             if (ModelState.IsValid)
             {
                 newT.UserId = UserID();
-                _context.Transactions.Add(newT);
-                _context.SaveChanges();
-                return Redirect($"account/{UserID()}");
+                ViewBag.User = _context.Users
+                .Include(u => u.TransactionList).OrderBy(u => u.CreatedAt)
+                .FirstOrDefault(u => u.UserId == newT.UserId);
+                decimal CurrentTotal = AcctTotal();
+                decimal check = CurrentTotal += newT.Amount;
+                if (check < 0)
+                {
+                    return Redirect($"account/{UserID()}");
+
+                }
+                else
+                {
+                    _context.Transactions.Add(newT);
+                    _context.SaveChanges();
+                    return Redirect($"account/{UserID()}");
+                }
+
             }
             else
             {
